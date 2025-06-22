@@ -52,7 +52,7 @@ export default function About() {
             <motion.div variants={fadeInUpVariants} className="space-y-8">
               <div className="prose prose-lg dark:prose-invert max-w-none">
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  I'm <strong>{greeting.nickname}</strong>, a passionate Software Engineer specializing in 
+                  I&apos;m <strong>{greeting.nickname}</strong>, a passionate Software Engineer specializing in 
                   <strong> Artificial Intelligence and Machine Learning</strong>. Currently pursuing my B.Tech at 
                   Kalasalingam Academy of Research and Education, I have hands-on experience in developing 
                   cutting-edge AI solutions across various domains.
@@ -60,8 +60,8 @@ export default function About() {
                 
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                   My journey in tech has been marked by successful internships at top companies like 
-                  <strong> IBM, Diebold Nixdorf, and MulticoreWare</strong>, where I've worked on projects 
-                  ranging from computer vision systems to large language models. I'm passionate about 
+                  <strong> IBM, Diebold Nixdorf, and MulticoreWare</strong>, where I&apos;ve worked on projects 
+                  ranging from computer vision systems to large language models. I&apos;m passionate about 
                   leveraging technology to solve real-world problems and create meaningful impact.
                 </p>
               </div>
@@ -91,7 +91,7 @@ export default function About() {
                   Competitive Programming
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {competitiveSites.competitiveSites.map((site, index) => (
+                  {competitiveSites.competitiveSites.map((site) => (
                     <motion.a
                       key={site.siteName}
                       href={site.profileLink}
@@ -169,7 +169,7 @@ export default function About() {
               <Card className="p-6 bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 border-none">
                 <CardContent className="p-0">
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-                    Let's Connect
+                    Let&apos;s Connect
                   </h3>
                   <div className="space-y-2">
                     <p className="text-gray-700 dark:text-gray-300">

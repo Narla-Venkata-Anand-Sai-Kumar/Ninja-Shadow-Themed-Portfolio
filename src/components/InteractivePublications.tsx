@@ -339,7 +339,7 @@ const InteractivePublications: React.FC = () => {
               <Search className="w-12 h-12 text-ninja-silver mx-auto mb-4" />
               <h3 className="text-xl font-bold text-ninja-white mb-2">No Shadow Research Found 🥷</h3>
               <p className="text-ninja-silver">
-                Research for "{searchTerm}" seems to be hidden in the shadows...
+                Research for &quot;{searchTerm}&quot; seems to be hidden in the shadows...
               </p>
             </motion.div>
           </motion.div>
