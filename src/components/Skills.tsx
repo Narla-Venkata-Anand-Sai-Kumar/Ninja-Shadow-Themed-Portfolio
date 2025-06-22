@@ -150,7 +150,7 @@ export default function Skills() {
                   Always Learning, Always Growing
                 </h3>
                 <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 max-w-3xl mx-auto">
-                  Technology evolves rapidly, and so do I. I'm constantly exploring new tools, 
+                  Technology evolves rapidly, and so do I. I&apos;m constantly exploring new tools, 
                   frameworks, and methodologies to stay at the forefront of innovation.
                 </p>
                 <div className="flex flex-wrap justify-center gap-3">

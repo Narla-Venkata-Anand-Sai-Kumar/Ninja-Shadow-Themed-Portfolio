@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ChevronDown, Download, Github, ExternalLink } from 'lucide-react'
+import { ChevronDown, Download, Github } from 'lucide-react'
 import { greeting, socialMediaLinks } from '@/data/info'
 import { fadeInUpVariants, slideInFromLeft, slideInFromRight, scrollToSection } from '@/lib/utils'
 
@@ -35,7 +35,7 @@ export default function Hero() {
                   variants={fadeInUpVariants}
                   className="text-lg font-medium text-blue-600 dark:text-blue-400"
                 >
-                  Hello, I'm
+                  Hello, I&apos;m
                 </motion.p>
                 <motion.h1
                   variants={fadeInUpVariants}

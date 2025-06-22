@@ -49,7 +49,7 @@ export default function Contact() {
                   Get In Touch
                 </h3>
                 <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">
-                  I'm always excited to discuss new opportunities, collaborate on projects, 
+                  I&apos;m always excited to discuss new opportunities, collaborate on projects, 
                   or just have a chat about technology and innovation. Feel free to reach out!
                 </p>
               </div>
@@ -250,7 +250,7 @@ export default function Contact() {
           {/* Available For */}
           <motion.div variants={fadeInUpVariants} className="mt-16 text-center">
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-              I'm Available For
+              I&apos;m Available For
             </h3>
             <div className="flex flex-wrap justify-center gap-3">
               {[

@@ -268,8 +268,7 @@ export default function InteractiveExperience() {
                       </motion.div>
                     </motion.div>
                   )
-                })
-              ) : (
+              }) || (
                 <div className="text-center text-ninja-gray dark:text-ninja-silver p-8">
                   <h3 className="text-xl font-bold mb-2">No experiences found for this section</h3>
                   <p>Section index: {activeSection}</p>
