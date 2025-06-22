@@ -1,0 +1,223 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Menu, X, Github, Linkedin, Mail, Twitter, Instagram, Home, User, Code, Briefcase, GraduationCap, FileText, MessageCircle } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { socialMediaLinks } from '@/data/info'
+
+const navigationItems = [
+  { name: 'Home', href: '/', icon: Home },
+  { name: 'About', href: '/about', icon: User },
+  { name: 'Skills', href: '/skills', icon: Code },
+  { name: 'Experience', href: '/experience', icon: Briefcase },
+  { name: 'Education', href: '/education', icon: GraduationCap },
+  { name: 'Publications', href: '/publications', icon: FileText },
+  { name: 'Contact', href: '/contact', icon: MessageCircle },
+]
+
+const socialIcons = {
+  'fa-github': Github,
+  'fa-linkedin-in': Linkedin,
+  'fa-google': Mail,
+  'fa-x-twitter': Twitter,
+  'fa-instagram': Instagram,
+}
+
+export default function Navigation() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const pathname = usePathname()
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50)
+      
+      // Update active section based on scroll position
+      const sections = navigationItems.map(item => item.href)
+      const currentSection = sections.find(section => {
+        const element = document.getElementById(section)
+        if (element) {
+          const rect = element.getBoundingClientRect()
+          return rect.top <= 100 && rect.bottom >= 100
+        }
+        return false
+      })
+      
+      if (currentSection) {
+        setActiveSection(currentSection)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const handleNavClick = (href: string) => {
+    scrollToSection(href)
+    setIsOpen(false)
+  }
+
+  return (
+    <>
+      <motion.header
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        className={cn(
+          'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+          scrolled
+            ? 'bg-white/90 backdrop-blur-md shadow-lg dark:bg-gray-900/90'
+            : 'bg-transparent'
+        )}
+      >
+        <nav className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+            >
+              Venny
+            </motion.div>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-8">
+              {navigationItems.map((item) => (
+                <motion.button
+                  key={item.name}
+                  onClick={() => handleNavClick(item.href)}
+                  className={cn(
+                    'relative px-3 py-2 text-sm font-medium transition-colors hover:text-blue-600',
+                    activeSection === item.href
+                      ? 'text-blue-600'
+                      : 'text-gray-700 dark:text-gray-300'
+                  )}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ y: 0 }}
+                >
+                  {item.name}
+                  {activeSection === item.href && (
+                    <motion.div
+                      layoutId="activeSection"
+                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-blue-600"
+                      initial={false}
+                    />
+                  )}
+                </motion.button>
+              ))}
+            </div>
+
+            {/* Social Links - Desktop */}
+            <div className="hidden md:flex items-center space-x-4">
+              {socialMediaLinks.slice(0, 3).map((social) => {
+                const IconComponent = socialIcons[social.fontAwesomeIcon as keyof typeof socialIcons]
+                return (
+                  <motion.a
+                    key={social.name}
+                    href={social.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <IconComponent size={18} />
+                  </motion.a>
+                )
+              })}
+            </div>
+
+            {/* Mobile Menu Button */}
+            <motion.button
+              onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+              whileTap={{ scale: 0.95 }}
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </motion.button>
+          </div>
+        </nav>
+      </motion.header>
+
+      {/* Mobile Navigation */}
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/50 z-40 md:hidden"
+              onClick={() => setIsOpen(false)}
+            />
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 20, stiffness: 100 }}
+              className="fixed top-0 right-0 h-full w-80 bg-white dark:bg-gray-900 shadow-xl z-50 md:hidden"
+            >
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-8">
+                  <h2 className="text-xl font-bold">Menu</h2>
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
+
+                <nav className="space-y-4">
+                  {navigationItems.map((item, index) => (
+                    <motion.button
+                      key={item.name}
+                      onClick={() => handleNavClick(item.href)}
+                      className={cn(
+                        'block w-full text-left px-4 py-3 rounded-lg text-lg font-medium transition-colors',
+                        activeSection === item.href
+                          ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20'
+                          : 'hover:bg-gray-50 dark:hover:bg-gray-800'
+                      )}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                    >
+                      {item.name}
+                    </motion.button>
+                  ))}
+                </nav>
+
+                <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+                  <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-4">
+                    Connect with me
+                  </h3>
+                  <div className="flex space-x-4">
+                    {socialMediaLinks.map((social) => {
+                      const IconComponent = socialIcons[social.fontAwesomeIcon as keyof typeof socialIcons]
+                      return (
+                        <motion.a
+                          key={social.name}
+                          href={social.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-3 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.95 }}
+                          style={{ backgroundColor: `${social.backgroundColor}20` }}
+                        >
+                          <IconComponent size={20} />
+                        </motion.a>
+                      )
+                    })}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
+  )
+}
